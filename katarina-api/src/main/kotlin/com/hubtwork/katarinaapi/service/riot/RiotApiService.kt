@@ -3,6 +3,7 @@ package com.hubtwork.katarinaapi.service.riot
 import com.google.gson.Gson
 import com.hubtwork.katarinaapi.config.WebClientConfig
 import com.hubtwork.katarinaapi.dto.riotapi.v3.champion.ChampionInfoDTO
+import com.hubtwork.katarinaapi.dto.riotapi.v4.league.LeagueEntryDTO
 import com.hubtwork.katarinaapi.dto.riotapi.v4.league.LeagueListDTO
 import com.hubtwork.katarinaapi.dto.riotapi.v4.match.MatchDTO
 import com.hubtwork.katarinaapi.dto.riotapi.v4.match.MatchTimelineDTO
@@ -15,6 +16,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.time.LocalDateTime
 
@@ -39,13 +41,13 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
         const val summoner_by_summonerId = "/lol/summoner/v4/summoners/"
 
         // v4 - league
-        const val league_by_leagueId = "https://kr.api.riotgames.com/lol/league/v4/leagues/"
-        const val leagueInfo_by_summonerId = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/"
-        const val leagueEntry_by_param = "https://kr.api.riotgames.com/lol/league/v4/entries/"
+        const val league_by_leagueId = "/lol/league/v4/leagues/"
+        const val leagueInfo_by_summonerId = "/lol/league/v4/entries/by-summoner/"
+        const val leagueEntry_by_param = "/lol/league/v4/entries/"
 
-        const val challenger_league = "https://kr.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/"
-        const val grandmaster_league = "https://kr.api.riotgames.com/lol/league/v4/grandmasterleagues/by-queue/"
-        const val master_league = "https://kr.api.riotgames.com/lol/league/v4/masterleagues/by-queue/"
+        const val challenger_league = "/lol/league/v4/challengerleagues/by-queue/"
+        const val grandmaster_league = "/lol/league/v4/grandmasterleagues/by-queue/"
+        const val master_league = "/lol/league/v4/masterleagues/by-queue/"
 
         // v4 - match
         const val match_by_matchId = "/lol/match/v4/matches/"
@@ -109,11 +111,11 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
             .retrieve()
             .bodyToMono(LeagueListDTO::class.java)
 
-    override fun getLeagueBySummonerId(encryptedSummonerId: String): Mono<LeagueListDTO>? =
+    override fun getLeagueBySummonerId(encryptedSummonerId: String): Flux<LeagueEntryDTO>? =
         webClient.get()
             .uri("https://$platform$leagueInfo_by_summonerId$encryptedSummonerId")
             .retrieve()
-            .bodyToMono(LeagueListDTO::class.java)
+            .bodyToFlux(LeagueEntryDTO::class.java)
 
     override fun getPlatformStatus(): Mono<PlatformDataDTO>? =
         webClient.get()

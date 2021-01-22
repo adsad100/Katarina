@@ -1,6 +1,8 @@
 package com.hubtwork.katarinaapi.service.riot.`interface`
 
+import com.hubtwork.katarinaapi.dto.riotapi.v4.league.LeagueEntryDTO
 import com.hubtwork.katarinaapi.dto.riotapi.v4.league.LeagueListDTO
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 interface LeagueV4 {
@@ -11,6 +13,6 @@ interface LeagueV4 {
     fun getAllLeague(queue: String, tier: String, division: String): Mono<LeagueListDTO>?
 
     fun getLeagueByLeagueId(leagueId: String): Mono<LeagueListDTO>?
-    fun getLeagueBySummonerId(encryptedSummonerId: String): Mono<LeagueListDTO>?
+    fun getLeagueBySummonerId(encryptedSummonerId: String): Flux<LeagueEntryDTO>?
 
 }

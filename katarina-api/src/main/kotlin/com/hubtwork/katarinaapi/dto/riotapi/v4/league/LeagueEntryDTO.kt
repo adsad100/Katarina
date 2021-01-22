@@ -1,6 +1,7 @@
 package com.hubtwork.katarinaapi.dto.riotapi.v4.league
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.hubtwork.katarinaapi.dto.riotapi.katarina.user.RecordDTO
 import kotlin.math.roundToInt
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,5 +21,8 @@ data class LeagueEntryDTO(
     var hotStreak: Boolean          // 연승 여부
 )
 {
+    fun getRankRecord(): RecordDTO =
+        RecordDTO(queueType, "$tier $rank $leaguePoints",
+            wins, losses, ((1000 * (wins.toDouble() / (wins + losses))).roundToInt().toDouble())/10)
     fun getTierString() = "$tier $rank $leaguePoints"
 }
