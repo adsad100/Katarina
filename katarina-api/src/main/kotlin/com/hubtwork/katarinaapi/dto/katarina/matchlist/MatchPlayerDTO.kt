@@ -1,13 +1,17 @@
-package com.hubtwork.katarinaapi.dto.riotapi.katarina.matchlist
+package com.hubtwork.katarinaapi.dto.katarina.matchlist
 
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.match.Items
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.match.KDA
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.match.Perk
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.match.Statistics
+import com.hubtwork.katarinaapi.dto.katarina.match.Items
+import com.hubtwork.katarinaapi.dto.katarina.match.KDA
+import com.hubtwork.katarinaapi.dto.katarina.match.Perk
+import com.hubtwork.katarinaapi.dto.katarina.match.Statistics
 
 data class MatchPlayerDTO(
     // 팀 정보
     var team: Int,
+    var win: Boolean,
+
+    // 라인 정보
+    var lane: String,
 
     // 소환사 정보
     var summonerName: String,

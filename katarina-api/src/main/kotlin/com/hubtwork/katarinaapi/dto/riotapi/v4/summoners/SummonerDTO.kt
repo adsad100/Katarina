@@ -1,7 +1,7 @@
 package com.hubtwork.katarinaapi.dto.riotapi.v4.summoners
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.user.SummonerInfoDTO
+import com.hubtwork.katarinaapi.dto.katarina.user.SummonerInfoDTO
 
 /**
  *              get summoner Basic DATA by Summoner Name

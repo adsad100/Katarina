@@ -1,12 +1,7 @@
-package com.hubtwork.katarinaapi.dto.riotapi.katarina.match
-
-import kotlin.math.roundToInt
+package com.hubtwork.katarinaapi.dto.katarina.match
 
 data class Statistics(
     // 1. 전투
-    var kills: Int,                 // KDA
-    var deaths: Int,
-    var assists: Int,
     var largestKillingSpree: Int,   // 최대 연속킬
     var largestMultiKill: Int,      // 최대 다중킬 ( 더블, 멀티, 트리플, 쿼드라, 펜타 )
     var KillingSprees: Int,     // 콤보킬 횟수

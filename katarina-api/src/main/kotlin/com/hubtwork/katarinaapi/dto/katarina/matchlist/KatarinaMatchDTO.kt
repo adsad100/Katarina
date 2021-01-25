@@ -1,8 +1,8 @@
-package com.hubtwork.katarinaapi.dto.riotapi.katarina.matchlist
+package com.hubtwork.katarinaapi.dto.katarina.matchlist
 
-data class MatchDTO(
+data class KatarinaMatchDTO(
 
-    var matchId: Int,
+    var matchId: Long,
     var platformId: String, // 플랫폼 Locale
     var seasonID: Int,      // 시즌 정보
     var gameVersion: String,// 클라이언트 버전
@@ -11,9 +11,9 @@ data class MatchDTO(
     var gameDuration: Long, // 매치 지속 시간 ( sec )
 
     var gameType: String,
-    var queueId: Int,
-    var mapId: Int,
+    var queue: String,
+    var map: String,
 
-    var players: ArrayList<MatchPlayerDTO>
+    var players: List<MatchPlayerDTO>
 
 )

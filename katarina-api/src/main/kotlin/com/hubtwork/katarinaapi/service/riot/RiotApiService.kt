@@ -73,7 +73,7 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
 
     }
 
-    private val platform = PlatformRoutes.KR.route
+    private val platform = PlatformRoutes.NA1.route
 
     override fun getChampionRotations(): Mono<ChampionInfoDTO>? =
         webClient.get()
@@ -159,6 +159,13 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
                 .queryParam("endIndex", beginIndex+19)
                 .build()
             }
+            .retrieve()
+            .bodyToMono(MatchlistDTO::class.java)
+
+    // test method for dev key
+    fun getMatchListWithIndexRange5(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>? =
+        webClient.get()
+            .uri("https://$platform$match_by_accountId$encryptedAccountId?beginIndex=$beginIndex&endIndex=${beginIndex + 5}")
             .retrieve()
             .bodyToMono(MatchlistDTO::class.java)
 

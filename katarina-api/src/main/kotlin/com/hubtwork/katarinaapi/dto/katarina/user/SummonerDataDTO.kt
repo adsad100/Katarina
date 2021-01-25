@@ -1,4 +1,4 @@
-package com.hubtwork.katarinaapi.dto.riotapi.katarina.user
+package com.hubtwork.katarinaapi.dto.katarina.user
 
 data class SummonerDataDTO(
 

@@ -1,4 +1,4 @@
-package com.hubtwork.katarinaapi.dto.riotapi.katarina.match
+package com.hubtwork.katarinaapi.dto.katarina.match
 
 data class Match(
 

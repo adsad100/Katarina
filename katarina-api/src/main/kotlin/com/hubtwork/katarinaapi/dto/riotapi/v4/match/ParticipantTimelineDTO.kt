@@ -15,3 +15,11 @@ data class ParticipantTimelineDTO (
 
 
 )
+{
+    fun getLaneData(): String {
+        return if(lane == "BOTTOM")
+            "$lane ${role.replace("DUO_", "")}"
+        else
+            "$lane"
+    }
+}

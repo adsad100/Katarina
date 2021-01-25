@@ -1,7 +1,7 @@
 package com.hubtwork.katarinaapi.dto.riotapi.v4.league
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.hubtwork.katarinaapi.dto.riotapi.katarina.user.RecordDTO
+import com.hubtwork.katarinaapi.dto.katarina.user.RecordDTO
 import kotlin.math.roundToInt
 
 @JsonIgnoreProperties(ignoreUnknown = true)
