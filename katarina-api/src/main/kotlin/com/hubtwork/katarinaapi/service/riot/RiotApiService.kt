@@ -99,11 +99,11 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
             .retrieve()
             .bodyToMono(LeagueListDTO::class.java)
 
-    override fun getAllLeague(queue: String, tier: String, division: String): Mono<LeagueListDTO>? =
+    override fun getAllLeague(queue: String, tier: String, division: String): Flux<LeagueEntryDTO>? =
         webClient.get()
             .uri("https://$platform$leagueEntry_by_param$queue/$tier/$division")
             .retrieve()
-            .bodyToMono(LeagueListDTO::class.java)
+            .bodyToFlux(LeagueEntryDTO::class.java)
 
     override fun getLeagueByLeagueId(leagueId: String): Mono<LeagueListDTO>? =
         webClient.get()
@@ -123,7 +123,7 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
             .retrieve()
             .bodyToMono(PlatformDataDTO::class.java)
 
-    override fun getMatchById(matchId: String): Mono<MatchDTO>? =
+    override fun getMatchById(matchId: Long): Mono<MatchDTO>? =
         webClient.get()
             .uri("https://$platform$match_by_matchId$matchId")
             .retrieve()
@@ -138,6 +138,49 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
     override fun getMatchListByAccountId(encryptedAccountId: String): Mono<MatchlistDTO>? =
         webClient.get()
             .uri("https://$platform$match_by_accountId$encryptedAccountId")
+            .retrieve()
+            .bodyToMono(MatchlistDTO::class.java)
+
+    override fun getMatchListWithIndexRange100(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>? =
+        webClient.get()
+            .uri{ uri -> uri
+                .path("https://$platform$match_by_accountId$encryptedAccountId")
+                .queryParam("beginIndex", beginIndex)
+                .build()
+            }
+            .retrieve()
+            .bodyToMono(MatchlistDTO::class.java)
+
+    override fun getMatchListWithIndexRange20(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>? =
+        webClient.get()
+            .uri{ uri -> uri
+                .path("https://$platform$match_by_accountId$encryptedAccountId")
+                .queryParam("beginIndex", beginIndex)
+                .queryParam("endIndex", beginIndex+19)
+                .build()
+            }
+            .retrieve()
+            .bodyToMono(MatchlistDTO::class.java)
+
+    override fun getMatchListWithChampion(encryptedAccountId: String, champion: Int, beginIndex: Int): Mono<MatchlistDTO>? =
+        webClient.get()
+            .uri{ uri -> uri
+                .path("https://$platform$match_by_accountId$encryptedAccountId")
+                .queryParam("champion", champion)
+                .queryParam("beginIndex", beginIndex)
+                .build()
+            }
+            .retrieve()
+            .bodyToMono(MatchlistDTO::class.java)
+
+    override fun getMatchListWithQueue(encryptedAccountId: String, queue: Int, beginIndex: Int): Mono<MatchlistDTO>? =
+        webClient.get()
+            .uri{ uri -> uri
+                .path("https://$platform$match_by_accountId$encryptedAccountId")
+                .queryParam("queue", queue)
+                .queryParam("beginIndex", beginIndex)
+                .build()
+            }
             .retrieve()
             .bodyToMono(MatchlistDTO::class.java)
 

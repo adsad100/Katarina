@@ -117,16 +117,31 @@ class KatarinaApiService(private val webClient: WebClient, private val riotApiSe
         return ResponseEntity(ErrorResponse("404 NOT FOUND", "소환사 '$summonerName'가 존재하지 않습니다."), HttpStatus.NOT_FOUND)
     }
 
-    override fun getMatch(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO> {
+    override fun translateMatch(match: MatchDTO): Mono<MatchlistDTO> {
         TODO("Not yet implemented")
     }
 
     override fun getMatchRecords(encryptedAccountId: String): ResponseEntity<Any> {
-        val matchList = riotApiService.getMatchListByAccountId(encryptedAccountId)?.block()
+        val matchListMono = riotApiService.getMatchListByAccountId(encryptedAccountId)?.block()
+        val matchList = matchListMono?.matches
         if (matchList != null) {
+            val matches = matchList.map { it.gameId }
 
         }
         return ResponseEntity(ErrorResponse("404 NOT Found", "해당 조건의 전적 데이터가 존재하지 않습니다. "), HttpStatus.NOT_FOUND)
+    }
+
+    fun getMatches(matches: List<Long>): String {
+        val result = Flux.fromIterable(matches)
+            .flatMap{matchId -> riotApiService.getMatchById(matchId)?.onErrorResume{e -> Mono.empty()}}
+            .toStream()
+            .collect(Collectors.toList())
+
+        result.forEach {
+
+        }
+
+        return gson.toJson(result)
     }
 
     override fun getChampionRecords(encryptedAccountId: String): ResponseEntity<Any> {

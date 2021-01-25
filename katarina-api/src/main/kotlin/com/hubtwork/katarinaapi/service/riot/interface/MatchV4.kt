@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono
 
 interface MatchV4 {
 
-    fun getMatchById(matchId: String): Mono<MatchDTO>?
+    fun getMatchById(matchId: Long): Mono<MatchDTO>?
     fun getMatchTimelineById(matchId: String): Mono<MatchTimelineDTO>?
 
     /**
@@ -22,5 +22,11 @@ interface MatchV4 {
      *
      */
     fun getMatchListByAccountId(encryptedAccountId: String): Mono<MatchlistDTO>?
+
+    fun getMatchListWithIndexRange100(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>?
+    fun getMatchListWithIndexRange20(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>?
+
+    fun getMatchListWithChampion(encryptedAccountId: String, champion: Int, beginIndex: Int): Mono<MatchlistDTO>?
+    fun getMatchListWithQueue(encryptedAccountId: String, queue: Int, beginIndex: Int): Mono<MatchlistDTO>?
 
 }

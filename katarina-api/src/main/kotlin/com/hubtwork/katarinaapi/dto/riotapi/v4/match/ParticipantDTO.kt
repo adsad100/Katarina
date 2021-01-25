@@ -1,7 +1,7 @@
 package com.hubtwork.katarinaapi.dto.riotapi.v4.match
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.hubtwork.katalina_statics.model.dto.riotapi.v4.match.ParticipantStatsDTO
+import com.hubtwork.katarinaapi.dto.riotapi.katarina.matchlist.MatchPlayerDTO
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ParticipantDTO(
@@ -25,4 +25,10 @@ data class ParticipantDTO(
 
     var stats: ParticipantStatsDTO,        //  플레이어 스텟 정보
 )
+{
+    fun getMatchPlayerDTO(): MatchPlayerDTO =
+        MatchPlayerDTO(teamId, "", "", championId, spell1Id, spell2Id,
+            stats.getPerks(), stats.getKDA(), stats.getItems(), stats.getStatistics())
+
+}
 

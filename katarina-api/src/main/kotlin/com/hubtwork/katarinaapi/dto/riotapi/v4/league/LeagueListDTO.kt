@@ -18,7 +18,7 @@ package com.hubtwork.katarinaapi.dto.riotapi.v4.league
 
 data class LeagueListDTO (
 
-    var leagueID : String,      // League ID
+    var leagueId : String,      // League ID
     var tier : String,          // 티어
     var queue : String,         // 큐 타입 ( 솔랭, 자랭, TFT )
     var name : String,          // 리그 명

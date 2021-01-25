@@ -1,5 +1,7 @@
 package com.hubtwork.katarinaapi.dto.riotapi.v4.match
 
+import com.hubtwork.katarinaapi.dto.riotapi.katarina.matchlist.MatchPlayerDTO
+
 /**
  *              get Detail DATA about particular Match
  *
@@ -55,4 +57,17 @@ data class MatchDTO(
 )
 {
     fun getStartTime(): Long = gameCreation
+
+    fun getSummonerIds() = participantIdentities.map { it.player.summonerId }
+
+    fun pipeliningToMatch(): List<MatchPlayerDTO> {
+        val playerNames = participantIdentities.map { it.player.summonerName }
+
+        var players = participants.map { it.getMatchPlayerDTO() }
+        // not yet summoner names
+
+        players.forEachIndexed{ index, player -> player.summonerName = playerNames[index] }
+        // not yet tier strings
+        return players
+    }
 }

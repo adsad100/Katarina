@@ -1,5 +1,6 @@
-package com.hubtwork.katalina_statics.model.dto.riotapi.v4.match
+package com.hubtwork.katarinaapi.dto.riotapi.v4.match
 
+import com.hubtwork.katarinaapi.dto.riotapi.katarina.match.*
 import kotlin.math.roundToInt
 
 data class ParticipantStatsDTO(
@@ -155,6 +156,18 @@ data class ParticipantStatsDTO(
     var playerScore9: Int,
 ) {
 
+    fun getStatistics(): Statistics =
+        Statistics(kills, deaths, assists, largestKillingSpree, largestMultiKill, KillingSprees, totalDamageDealt, physicalDamageDealt, magicDamageDealt, trueDamageDealt, totalDamageDealtToChampions, physicalDamageDealtToChampions, magicDamageDealtToChampions, trueDamageDealtToChampions, largestCriticalStrike, damageDealtToTurrets, damageDealtToObjectives, totalHeal, totalUnitsHealed, totalDamageTaken, physicalDamageTaken, magicalDamageTaken, trueDamageTaken, damageSelfMitigated, visionScore, wardsPlaced, wardsKilled, visionWardsBoughtInGame, goldEarned, goldSpent, totalMinionsKilled, neutralMinionsKilled, neutralMinionsKilledTeamJungle, neutralMinionsKilledEnemyJungle, turretKills, inhibitorKills, champLevel, sightWardsBoughtInGame, timeCCingOthers, totalTimeCrowdControlDealt, firstBloodKill, firstTowerKill)
+
+    fun getItems(): Items =
+        Items(item0, item1, item2, item3, item4, item5, item6)
+
+    fun getPerks(): Perk = Perk(perkPrimaryStyle, perkSubStyle, perk0, perk1, perk2, perk3, perk4, perk5)
+
+    private fun calcKDA(): Double =
+        ((100 * ((kills.toDouble() + assists) / deaths)).roundToInt().toDouble())/100
+
+    fun getKDA() = KDA(kills, deaths, assists, calcKDA())
 
 }
 
