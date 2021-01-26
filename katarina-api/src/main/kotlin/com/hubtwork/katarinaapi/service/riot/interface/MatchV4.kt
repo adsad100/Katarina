@@ -26,7 +26,7 @@ interface MatchV4 {
     fun getMatchListWithIndexRange100(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>?
     fun getMatchListWithIndexRange20(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>?
 
-    fun getMatchListWithChampion(encryptedAccountId: String, champion: Int, beginIndex: Int): Mono<MatchlistDTO>?
+    fun getMatchListWithSeason(encryptedAccountId: String, season: Int, beginIndex: Int): Mono<MatchlistDTO>?
     fun getMatchListWithQueue(encryptedAccountId: String, queue: Int, beginIndex: Int): Mono<MatchlistDTO>?
 
 }

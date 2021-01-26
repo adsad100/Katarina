@@ -21,5 +21,5 @@ data class SummonerDTO(
     var profileIconId: Int
 )
 {
-    fun generateSummonerInfo() = SummonerInfoDTO(revisionDate, name, accountId, summonerLevel, profileIconId)
+    fun generateSummonerInfo() = SummonerInfoDTO(revisionDate, accountId, name, summonerLevel, profileIconId)
 }

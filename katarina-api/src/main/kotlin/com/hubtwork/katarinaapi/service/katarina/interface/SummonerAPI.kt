@@ -12,8 +12,6 @@ interface SummonerAPI {
 
     fun getSummonerData(summonerName: String): ResponseEntity<Any>
 
-    fun translateMatch(match: MatchDTO): Mono<MatchlistDTO>
-
     fun getMatchRecords(encryptedAccountId: String, ): ResponseEntity<Any>
 
     fun getChampionRecords(encryptedAccountId: String, ): ResponseEntity<Any>

@@ -73,7 +73,7 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
 
     }
 
-    private val platform = PlatformRoutes.NA1.route
+    private val platform = PlatformRoutes.KR.route
 
     override fun getChampionRotations(): Mono<ChampionInfoDTO>? =
         webClient.get()
@@ -169,11 +169,14 @@ class RiotApiService(private val webClient: WebClient, private val gson: Gson)
             .retrieve()
             .bodyToMono(MatchlistDTO::class.java)
 
-    override fun getMatchListWithChampion(encryptedAccountId: String, champion: Int, beginIndex: Int): Mono<MatchlistDTO>? =
+    // it's for gathering season rank champion filtered data
+    override fun getMatchListWithSeason(encryptedAccountId: String, season: Int, beginIndex: Int): Mono<MatchlistDTO>? =
         webClient.get()
             .uri{ uri -> uri
                 .path("https://$platform$match_by_accountId$encryptedAccountId")
-                .queryParam("champion", champion)
+                .queryParam("queue", 420)           // Solo Rank
+                .queryParam("queue", 430)           // Flex Rank
+                .queryParam("season", season)
                 .queryParam("beginIndex", beginIndex)
                 .build()
             }
