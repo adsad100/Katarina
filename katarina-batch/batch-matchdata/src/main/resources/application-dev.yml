@@ -1,0 +1,17 @@
+
+riot:
+  api-key: "RGAPI-40e2c421-a20d-4496-88db-5b1ab51eddc5"
+
+logging:
+  level:
+    root: info
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+  lettuce:
+    pool:
+      min-idle: 2
+      max-idle: 5
+      max-active: 10
