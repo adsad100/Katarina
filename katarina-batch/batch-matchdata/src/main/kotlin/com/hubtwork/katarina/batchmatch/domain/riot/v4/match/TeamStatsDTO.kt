@@ -1,4 +1,4 @@
-package com.hubtwork.katarina.batchmatch.domain.`match-api`
+package com.hubtwork.katarina.batchmatch.domain.riot.v4.match
 
 data class TeamStatsDTO(
     var teamID : Int, // 100 : Blue, 200 : Red

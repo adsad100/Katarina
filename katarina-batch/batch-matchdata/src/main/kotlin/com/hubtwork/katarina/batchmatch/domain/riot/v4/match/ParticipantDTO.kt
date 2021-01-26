@@ -1,4 +1,4 @@
-package com.hubtwork.katarina.batchmatch.domain.`match-api`
+package com.hubtwork.katarina.batchmatch.domain.riot.v4.match
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.hubtwork.katarinaapi.dto.katarina.matchlist.MatchPlayerDTO
