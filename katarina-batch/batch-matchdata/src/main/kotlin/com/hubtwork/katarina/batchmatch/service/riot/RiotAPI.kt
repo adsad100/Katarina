@@ -68,11 +68,7 @@ class RiotAPI(private val webClient: WebClient)
 
     override fun getMatchListWithIndexRange100(encryptedAccountId: String, beginIndex: Int): Mono<MatchlistDTO>? =
         webClient.get()
-            .uri{ uri -> uri
-                .path("https://$platform$match_by_accountId$encryptedAccountId")
-                .queryParam("beginIndex", beginIndex)
-                .build()
-            }
+            .uri("https://$platform$match_by_accountId$encryptedAccountId?beginIndex=$beginIndex&endIndex=${beginIndex + 99}")
             .retrieve()
             .bodyToMono(MatchlistDTO::class.java)
 

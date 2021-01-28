@@ -1,6 +1,9 @@
 package com.hubtwork.katarina.batchmatch.api.domain
 
-import java.io.Serializable
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -8,7 +11,8 @@ import javax.persistence.*
 @IdClass(ComposableKey::class)
 class UserWithMatch (
     accountId: String,
-    matchId: Long
+    matchId: Long,
+    matchEndTime: Long
         ){
 
     @Id
@@ -19,9 +23,13 @@ class UserWithMatch (
     @Column(name="matchId")
     var matchId: Long = matchId
 
-}
+    /**
+     * gameCreation : millisecond
+     * gameDuration : second
+     */
+    @Column(name="matchEndTime")
+    var matchTime: LocalDateTime = LocalDateTime.ofInstant(
+        Date(matchEndTime).toInstant(),
+        ZoneId.of("Asia/Seoul") )
 
-class ComposableKey(
-    val accountId: String = "",
-    val matchId: Long = 0
-): Serializable
+}

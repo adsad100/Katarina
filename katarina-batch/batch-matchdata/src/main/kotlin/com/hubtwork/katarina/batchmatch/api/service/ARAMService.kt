@@ -1,23 +1,26 @@
 package com.hubtwork.katarina.batchmatch.api.service
 
-import com.hubtwork.katarina.batchmatch.api.interfaces.MatchInterface
-import com.hubtwork.katarina.batchmatch.api.domain.MatchData
+import com.hubtwork.katarina.batchmatch.api.domain.ARAM
 import com.hubtwork.katarina.batchmatch.api.repository.ARAMRepository
+import org.springframework.data.repository.findByIdOrNull
 
-class ARAMService(private val repository: ARAMRepository) :MatchInterface{
-    override fun create(match: MatchData) {
+class ARAMService(private val repository: ARAMRepository) {
+
+    fun create(match: ARAM) {
+        repository.save(match)
         TODO("Not yet implemented")
     }
 
-    override fun read(id: Long): MatchData? {
+    fun read(matchId: Long): ARAM? {
+        return repository.findByIdOrNull(matchId)
         TODO("Not yet implemented")
     }
 
-    override fun update() {
+    fun update() {
         TODO("Not yet implemented")
     }
 
-    override fun delete() {
+    fun delete() {
         TODO("Not yet implemented")
     }
 }

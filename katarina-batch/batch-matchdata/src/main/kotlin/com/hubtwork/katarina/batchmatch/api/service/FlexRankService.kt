@@ -1,23 +1,25 @@
 package com.hubtwork.katarina.batchmatch.api.service
 
-import com.hubtwork.katarina.batchmatch.api.interfaces.MatchInterface
-import com.hubtwork.katarina.batchmatch.api.domain.MatchData
+import com.hubtwork.katarina.batchmatch.api.domain.FlexRank
 import com.hubtwork.katarina.batchmatch.api.repository.FlexRankRepository
+import org.springframework.data.repository.findByIdOrNull
 
-class FlexRankService(private val repository: FlexRankRepository) :MatchInterface{
-    override fun create(match: MatchData) {
+class FlexRankService(private val repository: FlexRankRepository) {
+    fun create(match: FlexRank) {
+        repository.save(match)
         TODO("Not yet implemented")
     }
 
-    override fun read(id: Long): MatchData? {
+    fun read(matchId: Long): FlexRank? {
+        TODO("Not yet implemented")
+        return repository.findByIdOrNull(matchId)
+    }
+
+    fun update() {
         TODO("Not yet implemented")
     }
 
-    override fun update() {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete() {
+    fun delete() {
         TODO("Not yet implemented")
     }
 }

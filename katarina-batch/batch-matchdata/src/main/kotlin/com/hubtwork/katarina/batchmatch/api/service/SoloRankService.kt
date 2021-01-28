@@ -1,22 +1,26 @@
 package com.hubtwork.katarina.batchmatch.api.service
 
-import com.hubtwork.katarina.batchmatch.api.interfaces.MatchInterface
-import com.hubtwork.katarina.batchmatch.api.domain.MatchData
+import com.hubtwork.katarina.batchmatch.api.domain.SoloRank
+import com.hubtwork.katarina.batchmatch.api.repository.SoloRankRepository
+import org.springframework.data.repository.findByIdOrNull
 
-class SoloRankService(val repository: SoloRankService) :MatchInterface{
-    override fun create(match: MatchData) {
+class SoloRankService(val repository: SoloRankRepository) {
+
+    fun create(match: SoloRank) {
+        repository.save(match)
         TODO("Not yet implemented")
     }
 
-    override fun read(id: Long): MatchData? {
+    fun read(matchId: Long): SoloRank? {
+        TODO("Not yet implemented")
+        return repository.findByIdOrNull(matchId)
+    }
+
+    fun update() {
         TODO("Not yet implemented")
     }
 
-    override fun update() {
-        TODO("Not yet implemented")
-    }
-
-    override fun delete() {
+    fun delete() {
         TODO("Not yet implemented")
     }
 }
