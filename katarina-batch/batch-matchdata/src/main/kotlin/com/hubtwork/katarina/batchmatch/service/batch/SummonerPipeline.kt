@@ -1,4 +1,4 @@
-package com.hubtwork.katarina.batchmatch.service.batch.summoner
+package com.hubtwork.katarina.batchmatch.service.batch
 
 import com.hubtwork.katarina.batchmatch.api.domain.Summoner
 import com.hubtwork.katarina.batchmatch.api.service.SummonerService

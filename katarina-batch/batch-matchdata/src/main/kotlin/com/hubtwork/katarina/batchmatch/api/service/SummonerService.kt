@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 class SummonerService(private val repository: SummonerRepository){
     fun create(summoner: Summoner) {
         repository.save(summoner)
+
     }
 
     fun getAllSummonerCount(): Long =
@@ -16,8 +17,6 @@ class SummonerService(private val repository: SummonerRepository){
 
     fun getAllSummonerEntry(): List<Summoner> =
         repository.findAll()
-
-    fun readAll(): List<Summoner> = repository.findAll()
 
     fun getSummonersForScan(): List<Pair<Int, String>> {
         val summoners = repository.getSummonersToFindMatch()
@@ -31,19 +30,20 @@ class SummonerService(private val repository: SummonerRepository){
     fun isSummonerExist(accountId: String) :Boolean =
         repository.checkSummonerExist(accountId).isNotEmpty()
 
-    fun read(summonerName: String): Summoner {
-        TODO("Not yet implemented")
+    fun getSummonerBySummonerName(summonerName: String): Summoner =
         repository.findBySummonerName(summonerName)
-    }
 
-    fun scannedSuccessful(id: Int) {
-        TODO("Not yet implemented")
+    fun scannedSuccessful(id: Int) :String {
+        // There couldn't be Error find summoner by given ID. ( in business logic )
         val summoner = repository.getOne(id)
         summoner.lastScanTime = LocalDateTime.now()
         repository.save(summoner)
+        return "[ NOTICE ] MARK ${ summoner.summonerName }'s scanned time correctly in DB "
     }
 
-    fun delete() {
-        TODO("Not yet implemented")
+    fun deleteSummonerBySummonerName(summonerName: String): String {
+        val summoner = repository.findBySummonerName(summonerName) ?: return "[ ERR ] $summonerName is not exist in DB"
+        repository.deleteById(summoner.id)
+        return "[ NOTICE ] $summonerName has been deleted in DB "
     }
 }

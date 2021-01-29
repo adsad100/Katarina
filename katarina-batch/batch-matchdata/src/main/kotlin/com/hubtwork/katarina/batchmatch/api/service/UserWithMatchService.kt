@@ -10,8 +10,8 @@ class UserWithMatchService(val repository: UserWithMatchRepository) {
     /**
      * matchIds :: Pair< accountId<Long>, matchEndTime<Long> >
      */
-    fun create(accountId: String, matchId: Long, matchEndTime: Long) {
-        repository.save(UserWithMatch(accountId, matchId, matchEndTime))
+    fun create(accountId: String, matchId: Long, queueType: Int, matchEndTime: Long) {
+        repository.save(UserWithMatch(accountId, matchId, queueType, matchEndTime))
     }
 
     fun getMatchListOfCurrentUser(accountId: String): List<UserWithMatch> =

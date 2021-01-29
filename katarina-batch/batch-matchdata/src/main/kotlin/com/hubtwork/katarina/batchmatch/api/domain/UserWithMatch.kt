@@ -1,6 +1,5 @@
 package com.hubtwork.katarina.batchmatch.api.domain
 
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -12,6 +11,7 @@ import javax.persistence.*
 class UserWithMatch (
     accountId: String,
     matchId: Long,
+    queueType: Int,
     matchEndTime: Long
         ){
 
@@ -22,6 +22,9 @@ class UserWithMatch (
     @Id
     @Column(name="matchId")
     var matchId: Long = matchId
+
+    @Column(name="queueType")
+    var queueType: Int = queueType
 
     /**
      * gameCreation : millisecond

@@ -6,7 +6,7 @@ import javax.persistence.*
 @Table(name = "normaldraft")
 class NormalMatch (
     matchId: Long,
-    sason: Int,
+    season: Int,
     matchJson: String,
         ){
 

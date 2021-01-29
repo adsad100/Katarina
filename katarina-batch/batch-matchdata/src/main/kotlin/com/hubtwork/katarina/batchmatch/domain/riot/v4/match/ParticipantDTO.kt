@@ -27,7 +27,7 @@ data class ParticipantDTO(
 )
 {
     fun getMatchPlayerDTO(): MatchPlayerDTO =
-        MatchPlayerDTO(teamId, false, timeline.getLaneData(), "", "", championId, spell1Id, spell2Id,
+        MatchPlayerDTO(teamId, stats.win, timeline.getLaneData(), "", "", championId, spell1Id, spell2Id,
             stats.getPerks(), stats.getKDA(), stats.getItems(), stats.getStatistics())
 
 }

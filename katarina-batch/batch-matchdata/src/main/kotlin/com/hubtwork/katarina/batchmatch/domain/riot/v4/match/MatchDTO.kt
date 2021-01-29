@@ -61,17 +61,17 @@ data class MatchDTO(
     fun getSummonerIds() = participantIdentities.map { it.player.summonerId }
 
     fun pipeliningToMatch(): KatarinaMatchDTO {
-        val playerNames = participantIdentities.map { it.player.summonerName }
-        val winnerTeam = teams.filter { it.win == "Win" }[0].teamID
+        val summonerNames = participantIdentities.map { it.player.summonerName }
+        val accountIds = participantIdentities.map { it.player.accountId }
+
         var players = participants.map { it.getMatchPlayerDTO() }
-        // not yet summoner names
 
         players.forEachIndexed{ index, player ->
-            player.summonerName = playerNames[index]
-            player.win = player.team == winnerTeam
+            player.summonerName = summonerNames[index]
+            player.accountId = accountIds[index]
         }
         // not yet tier strings
 
-        return KatarinaMatchDTO(gameId, platformId, seasonID, gameVersion, gameCreation, gameDuration, gameType, Queue.getTag(queueId), Maps.getName(mapId), players)
+        return KatarinaMatchDTO(gameId, platformId, seasonID, gameVersion, gameCreation, gameDuration, gameType, queueId, Maps.getName(mapId), players)
     }
 }

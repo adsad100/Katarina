@@ -13,4 +13,5 @@ class GsonConfig {
         .setPrettyPrinting()
         .disableHtmlEscaping()
         .create()
+
 }

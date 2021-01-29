@@ -15,7 +15,7 @@ data class MatchPlayerDTO(
 
     // 소환사 정보
     var summonerName: String,
-    var tierString: String,
+    var accountId: String,
 
     // 챔피언 정보
     var champion: Int,

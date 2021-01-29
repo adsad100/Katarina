@@ -11,7 +11,7 @@ data class KatarinaMatchDTO(
     var gameDuration: Long, // 매치 지속 시간 ( sec )
 
     var gameType: String,
-    var queue: String,
+    var queueId: Int,
     var map: String,
 
     var players: List<MatchPlayerDTO>

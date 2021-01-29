@@ -1,6 +1,6 @@
 package com.hubtwork.katarina.batchmatch.batch.work
 
-import com.hubtwork.katarina.batchmatch.service.batch.summoner.SummonerPipeline
+import com.hubtwork.katarina.batchmatch.service.batch.SummonerPipeline
 import junit.framework.*
 import junit.framework.Assert.assertEquals
 import org.junit.jupiter.api.Test
