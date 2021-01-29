@@ -14,6 +14,9 @@ class NormalMatch (
     @Column(name = "matchId")
     var id: Long = matchId
 
+    @Column(name = "season")
+    var season: Int = season
+
     @Column(name = "matchJson", columnDefinition = "TEXT")
     var matchData: String = matchJson
 

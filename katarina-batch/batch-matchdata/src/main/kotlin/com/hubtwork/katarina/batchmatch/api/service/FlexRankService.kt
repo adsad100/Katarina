@@ -10,10 +10,8 @@ class FlexRankService(private val repository: FlexRankRepository) {
     fun create(match: FlexRank) =
         repository.save(match)
 
-    fun read(matchId: Long): FlexRank? {
-        TODO("Not yet implemented")
-        return repository.findByIdOrNull(matchId)
-    }
+    fun getMatchByMatchId(matchId: Long): FlexRank? =
+        repository.findByIdOrNull(matchId)
 
     fun update() {
         TODO("Not yet implemented")

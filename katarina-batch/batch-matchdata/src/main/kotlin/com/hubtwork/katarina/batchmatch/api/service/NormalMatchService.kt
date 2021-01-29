@@ -11,10 +11,8 @@ class NormalMatchService(private val repository: NormalMatchRepository) {
     fun create(match: NormalMatch) =
         repository.save(match)
 
-    fun read(matchId: Long): NormalMatch? {
-        TODO("Not yet implemented")
-        return repository.findByIdOrNull(matchId)
-    }
+    fun getMatchByMatchId(matchId: Long): NormalMatch? =
+        repository.findByIdOrNull(matchId)
 
     fun update() {
         TODO("Not yet implemented")

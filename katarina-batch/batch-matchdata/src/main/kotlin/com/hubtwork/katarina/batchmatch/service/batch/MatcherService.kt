@@ -67,4 +67,78 @@ class MatcherService ( private val soloRank: SoloRankService,
             else -> insertEventMatch(matchId, season, matchData)
         }
     }
+
+    fun readSoloRank(matchId: Long) :String? {
+        var saved = soloRank.getMatchByMatchId(matchId)
+        return if (saved != null) {
+            val matchData = saved.matchData
+            logger.info("[ Solo Rank ] ${saved.id} read SuccessFull")
+            matchData
+        } else {
+            logger.info("[ Error ] Load $matchId in Solo Rank, DB Failed.")
+            null
+        }
+    }
+
+    fun readFlexRank(matchId: Long) :String? {
+        var saved = flexRank.getMatchByMatchId(matchId)
+        return if (saved != null) {
+            val matchData = saved.matchData
+            logger.info("[ Solo Rank ] ${saved.id} read SuccessFull")
+            matchData
+        } else {
+            logger.info("[ Error ] Load $matchId in Solo Rank, DB Failed.")
+            null
+        }
+    }
+
+    fun readNormalMatch(matchId: Long) :String? {
+        var saved = normalMatch.getMatchByMatchId(matchId)
+        return if (saved != null) {
+            val matchData = saved.matchData
+            logger.info("[ Solo Rank ] ${saved.id} read SuccessFull")
+            matchData
+        } else {
+            logger.info("[ Error ] Load $matchId in Solo Rank, DB Failed.")
+            null
+        }
+    }
+
+    fun readEventMatch(matchId: Long) :String? {
+        var saved = eventMatch.getMatchByMatchId(matchId)
+        return if (saved != null) {
+            val matchData = saved.matchData
+            logger.info("[ Solo Rank ] ${saved.id} read SuccessFull")
+            matchData
+        } else {
+            logger.info("[ Error ] Load $matchId in Solo Rank, DB Failed.")
+            null
+        }
+    }
+
+    fun readARAM(matchId: Long) :String? {
+        var saved = aram.getMatchByMatchId(matchId)
+        return if (saved != null) {
+            val matchData = saved.matchData
+            logger.info("[ Solo Rank ] ${saved.id} read SuccessFull")
+            matchData
+        } else {
+            logger.info("[ Error ] Load $matchId in Solo Rank, DB Failed.")
+            null
+        }
+    }
+
+    fun matchReader(matchId: Long, queueType: Int) :KatarinaMatchDTO? {
+        logger.info("[ Notice ] $matchId Reading Process Start...")
+        val matchData = when(queueType) {
+            420 -> readSoloRank(matchId)
+            430 -> readNormalMatch(matchId)
+            440 -> readFlexRank(matchId)
+            450 -> readARAM(matchId)
+            else -> readEventMatch(matchId)
+        }
+        matchData?.let {
+            return gson.fromJson(it, KatarinaMatchDTO::class.java)
+        } ?: return null
+    }
 }

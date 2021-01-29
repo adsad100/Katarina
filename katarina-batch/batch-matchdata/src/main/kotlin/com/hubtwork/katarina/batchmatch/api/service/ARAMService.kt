@@ -11,10 +11,8 @@ class ARAMService(private val repository: ARAMRepository) {
     fun create(match: ARAM) =
         repository.save(match)
 
-    fun read(matchId: Long): ARAM? {
-        return repository.findByIdOrNull(matchId)
-        TODO("Not yet implemented")
-    }
+    fun getMatchByMatchId(matchId: Long): ARAM? =
+        repository.findByIdOrNull(matchId)
 
     fun update() {
         TODO("Not yet implemented")

@@ -11,11 +11,8 @@ class EventMatchService(private val repository: EventMatchRepository) {
     fun create(match: EventMatch) =
         repository.save(match)
 
-    fun read(matchId: Long): Any? {
-
-        return repository.findByIdOrNull(matchId)
-        TODO("Not yet implemented")
-    }
+    fun getMatchByMatchId(matchId: Long): EventMatch? =
+        repository.findByIdOrNull(matchId)
 
     fun update() {
         TODO("Not yet implemented")
