@@ -1,7 +1,7 @@
 package com.hubtwork.katarina.batchmatch.service.pipelining
 
 import com.hubtwork.katarina.batchmatch.service.riot.RiotAPI
-import com.hubtwork.katarinaapi.dto.katarina.matchlist.KatarinaMatchDTO
+import com.hubtwork.katarina.batchmatch.domain.katarina.matchlist.KatarinaMatchDTO
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.batch.item.ItemReader

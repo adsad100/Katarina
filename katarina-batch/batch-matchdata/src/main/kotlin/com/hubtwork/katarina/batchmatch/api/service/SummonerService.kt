@@ -27,8 +27,8 @@ class SummonerService(private val repository: SummonerRepository){
         return listOf()
     }
 
-    fun isSummonerExist(accountId: String) :Boolean =
-        repository.checkSummonerExist(accountId).isNotEmpty()
+    fun isSummonerExist(accountId: String) :Int =
+        repository.checkSummonerExist(accountId)
 
     fun getSummonerBySummonerName(summonerName: String): Summoner =
         repository.findBySummonerName(summonerName)

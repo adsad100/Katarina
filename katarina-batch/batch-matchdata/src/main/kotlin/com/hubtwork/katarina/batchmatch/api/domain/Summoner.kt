@@ -30,6 +30,7 @@ class Summoner (
     @Column(name = "summonerId")
     var summonerId: String = summonerId
 
+    // Dummy Date for LRU Algorithm
     @Column(name = "last_scanned")
-    var lastScanTime: LocalDateTime = LocalDateTime.now()
+    var lastScanTime: LocalDateTime = LocalDateTime.of(2010, 12, 27, 12, 0)
 }

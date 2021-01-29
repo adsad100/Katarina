@@ -14,6 +14,9 @@ class UserWithMatchService(val repository: UserWithMatchRepository) {
         repository.save(UserWithMatch(accountId, matchId, queueType, matchEndTime))
     }
 
+    fun checkIsMatchAlreadyScanned(matchId: Long): Int =
+        repository.checkIsMatchAlreadyScanned(matchId)
+
     fun getMatchListOfCurrentUser(accountId: String): List<UserWithMatch> =
         repository.getMatchesByAccountId(accountId)
 

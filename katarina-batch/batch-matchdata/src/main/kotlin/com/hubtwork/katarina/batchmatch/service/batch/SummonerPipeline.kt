@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service
 class SummonerPipeline(private val riotAPI: RiotAPI,
                        private val summonerService: SummonerService,
                        private val userWithMatchService: UserWithMatchService,
+                       private val matcherService: MatcherService
                        ) {
 
     companion object {
@@ -34,7 +35,7 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
             val pk = summoner.first
             val accountId = summoner.second
             logger.info("SCAN   :: [ $pk, $accountId ]")
-
+            // check if this match enrolled already in DB
             val matchesAlreadyEnrolled = getSummonerMatchListInDB(accountId).map { it.matchId }.toSet()
 
             getSummonerMatchListFromAPI(accountId, matchesAlreadyEnrolled).forEach {
@@ -46,17 +47,11 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
         }
     }
 
-    /**
-     * Pair<Int, String>            :: Pair<id ( PK ). accountId> from summoner Table
-     */
     fun getSummonersForScan() : List<Pair<Int, String>> =
         summonerService.getSummonersForScan()
 
     fun getSummonerMatchListInDB(accountId: String) =
         userWithMatchService.getMatchListOfCurrentUser(accountId)
-
-    fun getLastMatchByAccountIdInDB(accountId: String) =
-        userWithMatchService.getLastMatchOfCurrentUser(accountId)
 
     fun getAllSummonerData() =
         summonerService.getAllSummonerEntry()
@@ -70,12 +65,17 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
     // if match is not in DB , INSERT matches.
     fun getMatchDetailByAccountId(matchId: Long) {
         val matchDetail = riotAPI.getMatchById(matchId)!!.block()!!
+        val queueType = matchDetail.queueId
         val matchEndTime = matchDetail.gameCreation + matchDetail.gameDuration * 1000
+
+        val pipelinedMatch = matchDetail.pipeliningToMatch()
+        matcherService.matchInserter(pipelinedMatch)
+
         matchDetail.participantIdentities.forEach {
             val player = it.player
             val accountId = player.accountId
-            userWithMatchService.create(accountId, matchId, matchEndTime)
-            if (!summonerService.isSummonerExist(accountId))
+            userWithMatchService.create(accountId, matchId, queueType, matchEndTime)
+            if (summonerService.isSummonerExist(accountId) == 0)
                 summonerService.create(Summoner(player.platformId, player.accountId, player.summonerName, player.summonerId))
         }
     }

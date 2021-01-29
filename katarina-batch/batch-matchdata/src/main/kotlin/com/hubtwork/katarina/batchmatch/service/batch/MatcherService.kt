@@ -3,7 +3,7 @@ package com.hubtwork.katarina.batchmatch.service.batch
 import com.google.gson.Gson
 import com.hubtwork.katarina.batchmatch.api.domain.*
 import com.hubtwork.katarina.batchmatch.api.service.*
-import com.hubtwork.katarinaapi.dto.katarina.matchlist.KatarinaMatchDTO
+import com.hubtwork.katarina.batchmatch.domain.katarina.matchlist.KatarinaMatchDTO
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
@@ -128,7 +128,7 @@ class MatcherService ( private val soloRank: SoloRankService,
         }
     }
 
-    fun matchReader(matchId: Long, queueType: Int) :KatarinaMatchDTO? {
+    fun matchReader(matchId: Long, queueType: Int) : KatarinaMatchDTO? {
         logger.info("[ Notice ] $matchId Reading Process Start...")
         val matchData = when(queueType) {
             420 -> readSoloRank(matchId)
@@ -140,5 +140,10 @@ class MatcherService ( private val soloRank: SoloRankService,
         matchData?.let {
             return gson.fromJson(it, KatarinaMatchDTO::class.java)
         } ?: return null
+    }
+
+    fun readFirstMatchesFromDBForTest() :SoloRank? {
+        logger.info("[ Notice ] Match Scanning for All Match DB")
+        return soloRank.getFirstMatchForTest()
     }
 }

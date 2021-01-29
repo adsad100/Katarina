@@ -14,6 +14,9 @@ class SoloRankService(val repository: SoloRankRepository) {
     fun getMatchByMatchId(matchId: Long): SoloRank? =
         repository.findByIdOrNull(matchId)
 
+    fun getFirstMatchForTest(): SoloRank? =
+        repository.getFirstMatch()
+
     fun update() {
         TODO("Not yet implemented")
     }

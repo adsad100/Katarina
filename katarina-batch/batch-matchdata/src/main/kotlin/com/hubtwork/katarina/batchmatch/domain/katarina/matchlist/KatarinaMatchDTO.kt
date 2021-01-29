@@ -1,4 +1,6 @@
-package com.hubtwork.katarinaapi.dto.katarina.matchlist
+package com.hubtwork.katarina.batchmatch.domain.katarina.matchlist
+
+import com.hubtwork.katarinaapi.dto.katarina.matchlist.MatchPlayerDTO
 
 data class KatarinaMatchDTO(
 

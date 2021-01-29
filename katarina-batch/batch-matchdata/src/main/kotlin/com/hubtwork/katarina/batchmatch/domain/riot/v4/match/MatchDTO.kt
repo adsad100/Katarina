@@ -1,8 +1,7 @@
 package com.hubtwork.katarina.batchmatch.domain.riot.v4.match
 
-import com.hubtwork.katarinaapi.dto.katarina.matchlist.KatarinaMatchDTO
+import com.hubtwork.katarina.batchmatch.domain.katarina.matchlist.KatarinaMatchDTO
 import com.hubtwork.katarinaapi.dto.riotapi.statics.Maps
-import com.hubtwork.katarinaapi.dto.riotapi.statics.Queue
 
 /**
  *              get Detail DATA about particular Match
@@ -12,7 +11,7 @@ import com.hubtwork.katarinaapi.dto.riotapi.statics.Queue
 data class MatchDTO(
     var gameId: Long,       // matchID
     var platformId: String, // 플랫폼 Locale
-    var seasonID: Int,      // 시즌 정보
+    var seasonId: Int,      // 시즌 정보
     var gameVersion: String,// 클라이언트 버전
 
     var gameCreation: Long, // 매치 시작 시간
@@ -72,6 +71,6 @@ data class MatchDTO(
         }
         // not yet tier strings
 
-        return KatarinaMatchDTO(gameId, platformId, seasonID, gameVersion, gameCreation, gameDuration, gameType, queueId, Maps.getName(mapId), players)
+        return KatarinaMatchDTO(gameId, platformId, seasonId, gameVersion, gameCreation, gameDuration, gameType, queueId, Maps.getName(mapId), players)
     }
 }

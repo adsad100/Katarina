@@ -1,5 +1,6 @@
 package com.hubtwork.katarina.batchmatch.batch.work
 
+import com.hubtwork.katarina.batchmatch.service.batch.MatcherService
 import com.hubtwork.katarina.batchmatch.service.batch.SummonerPipeline
 import junit.framework.*
 import junit.framework.Assert.assertEquals
@@ -20,6 +21,9 @@ class SummonerPipelineTest {
     }
     @Autowired
     lateinit var summonerPipeLine: SummonerPipeline
+
+    @Autowired
+    lateinit var matcherService: MatcherService
 
     // work
     @Test
@@ -92,8 +96,15 @@ class SummonerPipelineTest {
         logger.info("-------- Loaded Matches --------")
         val matchUserCount = summonerPipeLine.getAllUserMatchDataCount()
         val summonerCount = summonerPipeLine.getAllSummonerDataCount()
+        val solo_match = matcherService.readFirstMatchesFromDBForTest()
+
         logger.info("Inserted MatchUser Data : $matchUserCount")
         logger.info("Inserted Summoner Data : $summonerCount")
+        if (solo_match != null ) {
+            println(" 매치아이디 : ${solo_match.id}")
+            println(" 시즌 : ${solo_match.season}")
+            println(" ${matcherService.matchReader(solo_match.id, 420)}")
+        }
 
         summonerPipeLine.getAllSummonerData().forEach {
             println(it.summonerName)

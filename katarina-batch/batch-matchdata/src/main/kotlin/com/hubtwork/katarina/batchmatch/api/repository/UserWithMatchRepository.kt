@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserWithMatchRepository: JpaRepository<UserWithMatch, String>
 {
+    @Query("select 1 as cnt from dual " +
+            "where exists ( select 1 from search_usermatch where matchId = :targetMatchId)", nativeQuery = true)
+    fun checkIsMatchAlreadyScanned(@Param("targetMatchId")matchId: Long): Int
+
     @Query("select * from search_usermatch where accountId= :targetSummoner order by matchEndTime", nativeQuery = true)
     fun getMatchesByAccountId(@Param("targetSummoner")accountId: String): List<UserWithMatch>
 
