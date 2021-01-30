@@ -1,5 +1,6 @@
 package com.hubtwork.katarina.batchmatch.api.service
 
+import com.hubtwork.katarina.batchmatch.api.domain.SoloRank
 import com.hubtwork.katarina.batchmatch.api.domain.Summoner
 import com.hubtwork.katarina.batchmatch.api.repository.SummonerRepository
 import org.springframework.stereotype.Service
@@ -27,8 +28,14 @@ class SummonerService(private val repository: SummonerRepository){
         return listOf()
     }
 
+    fun getFirstSummonerForTest(): Summoner =
+        repository.getFirstSummonerForTest()
+
     fun isSummonerExist(accountId: String) :Int =
         repository.checkSummonerExist(accountId)
+
+    fun getSummonerByAccountId(accountId: String): Summoner =
+        repository.getSummonerAlreadyExists(accountId)
 
     fun getSummonerBySummonerName(summonerName: String): Summoner =
         repository.findBySummonerName(summonerName)

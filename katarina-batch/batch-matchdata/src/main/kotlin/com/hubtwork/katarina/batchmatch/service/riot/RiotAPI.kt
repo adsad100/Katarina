@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
+import reactor.kotlin.extra.retry.retryExponentialBackoff
+import java.time.Duration
 import java.time.LocalDateTime
 
 
@@ -59,6 +61,13 @@ class RiotAPI(private val webClient: WebClient)
     }
 
     private val platform = PlatformRoutes.KR.route
+
+    // TODO - Still Working ON
+    fun getMatchByMatchIdWithBlocking(matchId: Long) {
+        var match = webClient.get()
+            .uri("https://$platform$match_by_matchId$matchId")
+
+    }
 
     override fun getMatchById(matchId: Long): Mono<MatchDTO>? =
         webClient.get()
