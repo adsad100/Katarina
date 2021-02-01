@@ -75,9 +75,37 @@ class RiotAPI(private val webClient: WebClient)
                     return@exchangeToMono res.bodyToMono(MatchDTO::class.java)
                 }
                 else if (res.statusCode().is5xxServerError) {
-                    logger.warn("504 GatewayTimeOut Error Received")
+                    logger.warn("[ MatchDetail API ] 504 GatewayTimeOut Error Received")
                 }
-                return@exchangeToMono res.bodyToMono(MatchDTO::class.java)
+                return@exchangeToMono Mono.empty<MatchDTO>()
+            }
+
+    // TODO - Still Working ON
+    fun getMatchListWithIndexRange100WithBlocking(encryptedAccountId: String, beginIndex: Int) :Mono<MatchlistDTO> =
+        webClient.get()
+            .uri("https://$platform$match_by_accountId$encryptedAccountId?beginIndex=$beginIndex&endIndex=${beginIndex + 99}")
+            .exchangeToMono { res ->
+                if (res.statusCode().is2xxSuccessful) {
+                    return@exchangeToMono res.bodyToMono(MatchlistDTO::class.java)
+                }
+                else if (res.statusCode().is5xxServerError) {
+                    logger.warn("[ MatchList API ] 504 GatewayTimeOut Error Received")
+                }
+                return@exchangeToMono Mono.empty<MatchlistDTO>()
+            }
+
+    // TODO - Still Working ON
+    fun getSummonerByAccountIdWithBlocking(encryptedAccountId: String) :Mono<SummonerDTO> =
+        webClient.get()
+            .uri("https://$platform$summoner_by_account$encryptedAccountId")
+            .exchangeToMono { res ->
+                if (res.statusCode().is2xxSuccessful) {
+                    return@exchangeToMono res.bodyToMono(SummonerDTO::class.java)
+                }
+                else if (res.statusCode().is5xxServerError) {
+                    logger.warn("[ Summoner API ] 504 GatewayTimeOut Error Received")
+                }
+                return@exchangeToMono Mono.empty<SummonerDTO>()
             }
 
     override fun getMatchById(matchId: Long): Mono<MatchDTO>? =

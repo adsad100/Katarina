@@ -19,11 +19,11 @@ class SummonerService(private val repository: SummonerRepository){
     fun getAllSummonerEntry(): List<Summoner> =
         repository.findAll()
 
-    fun getSummonersForScan(): List<Pair<Int, String>> {
+    fun getSummonersForScan(): List<Triple<Int, String, String>> {
         val summoners = repository.getSummonersToFindMatch()
         if (summoners.isNotEmpty())
         {
-            return summoners.map { Pair(it.id, it.accountId) }
+            return summoners.map { Triple(it.id, it.accountId, it.summonerName) }
         }
         return listOf()
     }

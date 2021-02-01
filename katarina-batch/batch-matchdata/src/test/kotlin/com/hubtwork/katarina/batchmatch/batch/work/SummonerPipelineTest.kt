@@ -131,22 +131,38 @@ class SummonerPipelineTest {
 
     @Test
     @Transactional
-    fun pipeliningTwiceTest() {
+    fun pipeliningRepeatedlyTest() {
         summonerPipeLine.pipelining()
-        var matchUserCount = summonerPipeLine.getAllUserMatchDataCount()
-        var summonerCount = summonerPipeLine.getAllSummonerDataCount()
+        val matchUserCount = summonerPipeLine.getAllUserMatchDataCount()
+        val summonerCount = summonerPipeLine.getAllSummonerDataCount()
 
         summonerPipeLine.readSummonersFromDBForTest()
         matcherService.getAllMatchCountEachInDB()
+
+        summonerPipeLine.pipelining()
+
+        val matchUserCount2 = summonerPipeLine.getAllUserMatchDataCount()
+        val summonerCount2 = summonerPipeLine.getAllSummonerDataCount()
+
+        summonerPipeLine.readSummonersFromDBForTest()
+        matcherService.getAllMatchCountEachInDB()
+
+        summonerPipeLine.pipelining()
+
+        val matchUserCount3 = summonerPipeLine.getAllUserMatchDataCount()
+        val summonerCount3 = summonerPipeLine.getAllSummonerDataCount()
+
+        summonerPipeLine.readSummonersFromDBForTest()
+        matcherService.getAllMatchCountEachInDB()
+
         println("first matchCount: $matchUserCount")
         println("first userCount: $summonerCount")
 
-        summonerPipeLine.pipelining()
+        println("second matchCount: $matchUserCount2")
+        println("second userCount: $summonerCount2")
 
-        summonerPipeLine.readSummonersFromDBForTest()
-        matcherService.getAllMatchCountEachInDB()
-        println("second matchCount: $matchUserCount")
-        println("second userCount: $summonerCount")
+        println("third matchCount: $matchUserCount3")
+        println("third userCount: $summonerCount3")
 
     }
 
