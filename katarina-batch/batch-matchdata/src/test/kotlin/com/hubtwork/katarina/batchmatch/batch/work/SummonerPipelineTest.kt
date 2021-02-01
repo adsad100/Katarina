@@ -136,19 +136,17 @@ class SummonerPipelineTest {
         var matchUserCount = summonerPipeLine.getAllUserMatchDataCount()
         var summonerCount = summonerPipeLine.getAllSummonerDataCount()
 
+        summonerPipeLine.readSummonersFromDBForTest()
+        matcherService.getAllMatchCountEachInDB()
         println("first matchCount: $matchUserCount")
         println("first userCount: $summonerCount")
-        matcherService.getAllMatchCountEachInDB()
 
-        /*
         summonerPipeLine.pipelining()
 
-        matchUserCount = summonerPipeLine.getAllUserMatchDataCount()
-        summonerCount = summonerPipeLine.getAllSummonerDataCount()
-
+        summonerPipeLine.readSummonersFromDBForTest()
+        matcherService.getAllMatchCountEachInDB()
         println("second matchCount: $matchUserCount")
         println("second userCount: $summonerCount")
-        */
 
     }
 

@@ -38,13 +38,13 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
             // check if this match enrolled already in DB
             val matchesAlreadyEnrolled = getSummonerMatchListInDB(accountId).map { it.matchId }.toSet()
 
-            getSummonerMatchListFromAPI(accountId, matchesAlreadyEnrolled).subList(0, 20).forEach {
+            getSummonerMatchListFromAPI(accountId, matchesAlreadyEnrolled).forEach {
                 getMatchDetailByAccountId(it)
                 // avoid api request call limit
-                Thread.sleep(2000)
+                Thread.sleep(1000)
             }
             checkSummonersScanned(pk)
-            Thread.sleep(2000)
+            Thread.sleep(1000)
         }
     }
 
@@ -65,27 +65,36 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
 
     // if match is not in DB , INSERT matches.
     fun getMatchDetailByAccountId(matchId: Long) {
-        val matchDetail = riotAPI.getMatchById(matchId)!!.block()!!
-        val queueType = matchDetail.queueId
-        val matchEndTime = matchDetail.gameCreation + matchDetail.gameDuration * 1000
+        // val matchDetail = riotAPI.getMatchById(matchId)!!.block()!!
+        val matchDetail = riotAPI.getMatchByMatchIdWithBlocking(matchId).block()
+        if (matchDetail != null) {
+            val queueType = matchDetail.queueId
+            val matchEndTime = matchDetail.gameCreation + matchDetail.gameDuration * 1000
 
-        val pipelinedMatch = matchDetail.pipeliningToMatch()
-        matcherService.matchInserter(pipelinedMatch)
+            val pipelinedMatch = matchDetail.pipeliningToMatch()
+            matcherService.matchInserter(pipelinedMatch)
 
-        matchDetail.participantIdentities.forEach {
-            val player = it.player
-            val accountId = player.accountId
-            userWithMatchService.create(accountId, matchId, queueType, matchEndTime)
-            if (summonerService.isSummonerExist(accountId) == 0){
-                summonerService.create(Summoner(player.platformId, player.accountId, player.summonerName, player.summonerId))
-            }
-            else {
-                var summoner = summonerService.getSummonerByAccountId(accountId)
-                if ( summoner.summonerName != player.summonerName ) {
-                    summoner.summonerName = player.summonerName
-                    summonerService.create(summoner)
+            matchDetail.participantIdentities.forEach {
+                val player = it.player
+                val accountId = player.accountId
+                userWithMatchService.create(accountId, matchId, queueType, matchEndTime)
+                if (summonerService.isSummonerExist(accountId) == 0){
+                    summonerService.create(Summoner(player.platformId, player.accountId, player.summonerName, player.summonerId))
+                }
+                else {
+                    var summoner = summonerService.getSummonerByAccountId(accountId)
+                    if ( summoner.summonerName != player.summonerName ) {
+                        summoner.summonerName = player.summonerName
+                        summonerService.create(summoner)
+                    }
                 }
             }
+        }
+        // Retry function
+        else {
+            logger.warn("Retry Request")
+            Thread.sleep(1000L)
+            getMatchDetailByAccountId(matchId)
         }
     }
 
@@ -116,9 +125,10 @@ class SummonerPipeline(private val riotAPI: RiotAPI,
     fun checkSummonersScanned(summonerId : Int) =
         summonerService.scannedSuccessful(summonerId)
 
-    fun readFirstSummonerFromDBForTest() :Summoner {
-        logger.info("[ Notice ] Load First Summoner From DB")
-        return summonerService.getFirstSummonerForTest()
+    fun readSummonersFromDBForTest() {
+        val summonerCount = summonerService.getAllSummonerCount()
+
+        println("소환사 수 : $summonerCount")
     }
 
 }

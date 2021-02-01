@@ -6,11 +6,15 @@ import com.hubtwork.katarina.batchmatch.domain.riot.v4.match.MatchlistDTO
 import com.hubtwork.katarina.batchmatch.domain.riot.v4.summoner.SummonerDTO
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.WebClientResponseException
+import org.springframework.web.server.ServerErrorException
 import org.springframework.web.util.UriComponentsBuilder
 import reactor.core.publisher.Mono
-import reactor.kotlin.extra.retry.retryExponentialBackoff
+import reactor.kotlin.core.publisher.toMono
+import reactor.util.retry.Retry
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -63,11 +67,18 @@ class RiotAPI(private val webClient: WebClient)
     private val platform = PlatformRoutes.KR.route
 
     // TODO - Still Working ON
-    fun getMatchByMatchIdWithBlocking(matchId: Long) {
-        var match = webClient.get()
+    fun getMatchByMatchIdWithBlocking(matchId: Long) :Mono<MatchDTO> =
+        webClient.get()
             .uri("https://$platform$match_by_matchId$matchId")
-
-    }
+            .exchangeToMono { res ->
+                if (res.statusCode().is2xxSuccessful) {
+                    return@exchangeToMono res.bodyToMono(MatchDTO::class.java)
+                }
+                else if (res.statusCode().is5xxServerError) {
+                    logger.warn("504 GatewayTimeOut Error Received")
+                }
+                return@exchangeToMono res.bodyToMono(MatchDTO::class.java)
+            }
 
     override fun getMatchById(matchId: Long): Mono<MatchDTO>? =
         webClient.get()
