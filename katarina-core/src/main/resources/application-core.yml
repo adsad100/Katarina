@@ -1,0 +1,6 @@
+riot:
+  api-key: "RGAPI-d9dc83db-3c08-453d-8692-c5afe0f3cbc5"
+
+logging:
+  level:
+    root: info

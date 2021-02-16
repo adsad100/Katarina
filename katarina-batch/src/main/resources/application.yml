@@ -1,0 +1,64 @@
+spring:
+  profiles:
+    include: core
+  batch:
+    job:
+      enabled: true
+  main:
+    web-application-type: none
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    matcher:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://localhost/matcher?serverTimezone=UTC&characterEncoding=UTF-8
+      username: root
+      password: 1234
+      testOnBorrow: true
+      validationQuery: SELECT 1
+    batch:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://localhost/batch?serverTimezone=UTC&characterEncoding=UTF-8
+      username: root
+      password: 1234
+      testOnBorrow: true
+      validationQuery: SELECT 1
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    matcher:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://101.101.217.228:3306/matcher?serverTimezone=UTC&characterEncoding=UTF-8
+      username: match-spider
+      password: K@t@rin@M@tcherDB
+      testOnBorrow: true
+      validationQuery: SELECT 1
+    batch:
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mariadb://101.101.217.228:3306/batch?serverTimezone=UTC&characterEncoding=UTF-8
+      username: matcher-batch
+      password: K@t@rin@M@tcherDB
+      testOnBorrow: true
+      validationQuery: SELECT 1
+  jpa:
+    open-in-view: false
