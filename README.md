@@ -12,7 +12,7 @@ Total 3
 
 1. CentOS
 	DB : 2 ( Matcher - Master / Slave )
-	Jenkins : 1 ( )
+	Jenkins : 2 ( Production / Scheduling )
 ~~~
 
 ### Framework & Language
