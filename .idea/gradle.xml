@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/katarina-api" />
             <option value="$PROJECT_DIR$/katarina-batch" />
             <option value="$PROJECT_DIR$/katarina-core" />
             <option value="$PROJECT_DIR$/katarina-web" />

@@ -81,3 +81,17 @@ project(":katarina-batch") {
     }
 
 }
+
+project(":katarina-web") {
+
+    dependencies {
+        implementation(project(":katarina-core"))
+    }
+}
+
+project(":katarina-api") {
+
+    dependencies {
+        implementation(project(":katarina-core"))
+    }
+}
