@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit4.SpringRunner
 
-@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [BatchApplication::class] )
 class BatchApplicationTest {
@@ -38,12 +38,22 @@ class BatchApplicationTest {
         private val logger = LoggerFactory.getLogger(BatchApplicationTest::class.java)
     }
 
-    @AfterEach
+    //@AfterEach
     fun tearDown() {
         summonerRepository.deleteAllInBatch()
         matchListRepository.deleteAllInBatch()
         userWithMatchRepository.deleteAllInBatch()
         pipelinedMatchRepository.deleteAllInBatch()
+    }
+
+    @Test
+    fun DataInsert() {
+        // 이로현
+        summonerRepository.save(Summoner("KR", "oHhwdX9u9vepY-rp4Qf4pXuc0Pf0EZTEGdWLxUicdhnT","9na_jptY8QGyAWTxRWPzxI_FEyTgI51RvmvCothbDxXBoA"))
+        // DopaL
+        summonerRepository.save(Summoner("KR", "kLnPMSdc4Gd1wbYJ1N5zoxCiPf_w2ys_8vkLhHMu4aeH","oMVgzTeKEmjW8KQzRqgbBv7jHS-LJc67Q2ICslpuUSWSrQ"))
+        // 부산대표간지남
+        summonerRepository.save(Summoner("KR", "GaU-e7_Trx3Wq_dlAai7cxJBISAIzQsehcSxtSg2yIY","1egTDW2rtjWsGNWxi0kzLf-K3fX09JBWBhJT32aAcoLedw"))
     }
 
     @Test

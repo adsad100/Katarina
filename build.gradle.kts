@@ -22,7 +22,6 @@ subprojects {
     apply(plugin="org.jetbrains.kotlin.plugin.spring")
 
     group = "com.hubtwork"
-    version = "1.0-SNAPSHOT"
 
     dependencies {
         // jpa
@@ -61,6 +60,8 @@ project(":katarina-core") {
     bootJar.enabled = false
     jar.enabled = true
 
+    version = "1.0-SNAPSHOT"
+
     dependencies {
         // Test
         testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -70,6 +71,8 @@ project(":katarina-core") {
 
 project(":katarina-batch") {
     apply(plugin="org.jetbrains.kotlin.plugin.jpa")
+
+    version = "1.0-Alpha"
 
     dependencies {
         implementation(project(":katarina-core"))
@@ -84,12 +87,16 @@ project(":katarina-batch") {
 
 project(":katarina-web") {
 
+    version = "1.0-SNAPSHOT"
+
     dependencies {
         implementation(project(":katarina-core"))
     }
 }
 
 project(":katarina-api") {
+
+    version = "1.0-SNAPSHOT"
 
     dependencies {
         implementation(project(":katarina-core"))

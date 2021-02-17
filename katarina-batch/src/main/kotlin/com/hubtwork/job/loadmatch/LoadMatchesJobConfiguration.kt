@@ -79,7 +79,7 @@ class LoadMatchesJobConfiguration (
     @Primary
     @Bean("loadMatchesJob")
     fun loadMatchesJob(): Job =
-        jobBuilderFactory.get("loadMatchesJobOnApiJob")
+        jobBuilderFactory.get("loadMatches")
             .start(stepGetMatchesFromAPI())         // DB 소환사 정보 가져와 매치리스트 API
             .next(stepCheckSummonersAlreadyScanned())   // 소환사 정보 스캔타임 기록
             .next(stepGetMatchDetailFromAPI())      // 매치리스트 에서 매치 상세 API
