@@ -99,5 +99,4 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.mariadb.jdbc:mariadb-java-client:2.7.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.activation:jakarta.activation:1.2.2" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="katarina.katarina-api.main" />
 </module>
