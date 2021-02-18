@@ -40,7 +40,7 @@ class LoadMatchListProcessor (
             }
         }
         logger.info("---- Total [ ${matchList.size} ] matches Loaded From API ")
-        return resultSet.subList(0, 5)
+        return resultSet
     }
 
 }

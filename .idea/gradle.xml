@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/katarina-api" />
             <option value="$PROJECT_DIR$/katarina-batch" />
             <option value="$PROJECT_DIR$/katarina-core" />
+            <option value="$PROJECT_DIR$/katarina-statistics" />
             <option value="$PROJECT_DIR$/katarina-web" />
           </set>
         </option>

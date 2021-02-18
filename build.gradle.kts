@@ -72,7 +72,7 @@ project(":katarina-core") {
 project(":katarina-batch") {
     apply(plugin="org.jetbrains.kotlin.plugin.jpa")
 
-    version = "1.0-Alpha"
+    version = "1.0.A"
 
     dependencies {
         implementation(project(":katarina-core"))
@@ -97,6 +97,15 @@ project(":katarina-web") {
 project(":katarina-api") {
 
     version = "1.0-SNAPSHOT"
+
+    dependencies {
+        implementation(project(":katarina-core"))
+    }
+}
+
+project(":katarina-statistics") {
+
+    version = "1.0 - SnapShot"
 
     dependencies {
         implementation(project(":katarina-core"))
